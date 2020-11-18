@@ -12,8 +12,12 @@ public class EchoUDPServer {
     public static void main(String args[]) {
 
         DatagramSocket socket = null;
+        if (args.length != 1) {
+            System.out.println("Usage: java EchoServer <EchoServer port>");
+            System.exit(1);
+        }
         try {
-            socket = new DatagramSocket(300);
+            socket = new DatagramSocket(Integer.parseInt(args[0]));
         } catch (SocketException e) {
             e.printStackTrace();
         }
