@@ -18,8 +18,6 @@ public class EchoUDPServer {
                 String message = new String(packet.getData(), 0, packet.getLength());
                 System.out.println("Reception de : " + clientAddress.getHostName() + " : " + message);
                 handleReception(message,socket,clientAddress,port);
-
-
             } catch (IOException e) {
                 e.printStackTrace();
             }
