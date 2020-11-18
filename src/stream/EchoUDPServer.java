@@ -29,15 +29,15 @@ public class EchoUDPServer {
         String response = "";
         if (messsage.equals("connect") && !clientsConnected.containsKey(clientAddress)) {
             clientsConnected.put(clientAddress,port);
-            response = clientAddress + "has join the chat";
+            response = clientAddress.getHostName() + " has join the chat";
         } else if (messsage.equals("disconnect") && clientsConnected.containsKey(clientAddress)){
             clientsConnected.remove(clientAddress);
-            response = clientAddress + "has left the chat";
+            response = clientAddress.getHostName() + " has left the chat";
         } else {
             response = messsage;
         }
         try {
-            byte[] b = messsage.getBytes();
+            byte[] b = response.getBytes();
             for (Map.Entry<InetAddress,Integer> client :clientsConnected.entrySet()) {
                 DatagramPacket clientPacket = new DatagramPacket(b, b.length, client.getKey(), client.getValue());
                 socket.send(clientPacket);
