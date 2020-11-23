@@ -5,7 +5,7 @@ import java.net.*;
 import java.util.*;
 
 
-public class EchoUDPServer {
+public class UDPServer {
 
     static void doService(DatagramSocket socket) {
         byte[] buffer = new byte[1500];

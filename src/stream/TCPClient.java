@@ -11,13 +11,13 @@ import java.net.*;
 
 
 
-public class EchoClient extends Thread {
+public class TCPClient extends Thread {
     private Boolean isAWritter;
     private Socket echoSocket;
     private static Boolean isOpen;
     private String name;
 
-    public EchoClient (Boolean isAWritter, Socket echoSocket, String name) {
+    public TCPClient(Boolean isAWritter, Socket echoSocket, String name) {
         this.isAWritter = isAWritter;
         this.echoSocket = echoSocket;
         this.isOpen = true;
@@ -87,8 +87,8 @@ public class EchoClient extends Thread {
 
         Socket echoSocket = null;
         String name = "unknown";
-        EchoClient writter = null;
-        EchoClient reader = null;
+        TCPClient writter = null;
+        TCPClient reader = null;
 
         if (args.length != 3) {
           System.out.println("Usage: java EchoClient <EchoServer host> <EchoServer port> <EchoServer ClientName>");
@@ -107,8 +107,8 @@ public class EchoClient extends Thread {
             System.exit(1);
         }
 
-        writter = new EchoClient(true, echoSocket,name);
-        reader = new EchoClient(false,echoSocket,name);
+        writter = new TCPClient(true, echoSocket,name);
+        reader = new TCPClient(false,echoSocket,name);
         writter.start();
         reader.start();
     }

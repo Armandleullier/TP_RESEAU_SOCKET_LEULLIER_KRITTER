@@ -10,7 +10,7 @@ package stream;
 import java.io.*;
 import java.net.*;
 
-public class EchoServerMultiThreaded  {
+public class TCPServerMultiThreaded {
 
     /**
      * main method

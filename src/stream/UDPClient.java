@@ -3,10 +3,9 @@ package stream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.net.*;
 
-public class EchoUDPClient extends Thread{
+public class UDPClient extends Thread{
     private Boolean isAWritter;
     private DatagramSocket clientSock;
     private InetAddress serverAddress;
@@ -14,7 +13,7 @@ public class EchoUDPClient extends Thread{
     private static Boolean isOpen;
     private String name;
 
-    public EchoUDPClient (Boolean isAWritter, DatagramSocket clientSock, InetAddress serverAddress, int serverPort, String name) {
+    public UDPClient(Boolean isAWritter, DatagramSocket clientSock, InetAddress serverAddress, int serverPort, String name) {
         this.isAWritter = isAWritter;
         this.clientSock = clientSock;
         this.serverAddress = serverAddress;
@@ -91,8 +90,8 @@ public class EchoUDPClient extends Thread{
 
     public static void main(String[] args) throws IOException {
 
-        EchoUDPClient writter = null;
-        EchoUDPClient reader = null;
+        UDPClient writter = null;
+        UDPClient reader = null;
 
         if (args.length != 3) {
             System.out.println("Usage: java EchoClient <EchoServer host> <EchoServer port> <EchoServer ClientName>");
@@ -125,8 +124,8 @@ public class EchoUDPClient extends Thread{
             System.exit(1);
         }
 
-        writter = new EchoUDPClient(true, clientSock,serverAddress, serverPort, args[2]);
-        reader = new EchoUDPClient(false,clientSock,serverAddress, serverPort, args[2]);
+        writter = new UDPClient(true, clientSock,serverAddress, serverPort, args[2]);
+        reader = new UDPClient(false,clientSock,serverAddress, serverPort, args[2]);
         writter.start();
         reader.start();
 

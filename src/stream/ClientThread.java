@@ -58,7 +58,7 @@ public class ClientThread extends Thread {
     }
 
     public void loadHistory () throws IOException, InterruptedException {
-        File file = new File("history.txt");
+        File file = new File("../dataBase/history.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
         String message;
         PrintStream socOut = new PrintStream(clientSocket.getOutputStream());
@@ -69,7 +69,7 @@ public class ClientThread extends Thread {
     }
 
     public void addMessageToHistoryFile (String message) throws IOException {
-        FileWriter fw = new FileWriter("history.txt", true);
+        FileWriter fw = new FileWriter("../dataBase/history.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(message);
         bw.newLine();

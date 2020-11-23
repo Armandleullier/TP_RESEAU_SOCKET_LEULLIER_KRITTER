@@ -1,0 +1,1 @@
+java -cp . ../src/stream/TCPClient.java 192.168.1.90 1200 Anonymous1
