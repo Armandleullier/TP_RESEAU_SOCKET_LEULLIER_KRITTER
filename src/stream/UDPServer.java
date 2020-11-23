@@ -7,6 +7,10 @@ import java.util.*;
 
 public class UDPServer {
 
+    /**
+     * Receive message from clients and handle th reception
+     * @param socket server socket
+     */
     static void doService(DatagramSocket socket) {
         byte[] buffer = new byte[1500];
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
@@ -25,6 +29,15 @@ public class UDPServer {
         }
     }
 
+    /**
+     * send messages received to all the clients connected
+     * @param messsage message received
+     * @param socket server socket
+     * @param clientAddress client address
+     * @param port client port
+     * @param clientsConnected list of client connected
+     * Notice that it doesn't works with different ip address as we choose to have a set of the client port in order to test in local
+     */
     static void handleReception(String messsage, DatagramSocket socket,InetAddress clientAddress,int port,Set<Integer> clientsConnected) {
         String response = "";
         if (messsage.equals("connect") && !clientsConnected.contains(port)) {
@@ -47,6 +60,10 @@ public class UDPServer {
         }
     }
 
+    /**
+     * main method
+     * @param args 0: PortNumber of the connexion
+     **/
     public static void main(String args[]) {
         DatagramSocket socket = null;
         if (args.length != 1) {

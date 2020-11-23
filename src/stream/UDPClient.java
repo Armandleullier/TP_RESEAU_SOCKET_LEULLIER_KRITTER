@@ -13,6 +13,13 @@ public class UDPClient extends Thread{
     private static Boolean isOpen;
     private String name;
 
+    /**
+     * @param isAWritter if the tread was meant to write
+     * @param name name of the client
+     * @param clientSock socket of the client
+     * @param serverAddress ip of the server
+     * @param serverPort port of the server
+     */
     public UDPClient(Boolean isAWritter, DatagramSocket clientSock, InetAddress serverAddress, int serverPort, String name) {
         this.isAWritter = isAWritter;
         this.clientSock = clientSock;
@@ -22,6 +29,9 @@ public class UDPClient extends Thread{
         this.name = name;
     }
 
+    /**
+     * lauchn writter if the thread was meant to write or reader if the thread was meant to read
+     */
     public void run () {
         if(isAWritter) {
             try {
@@ -38,6 +48,10 @@ public class UDPClient extends Thread{
         }
     }
 
+    /**
+     * Display messages when received
+     * @throws IOException
+     */
     public void reader () throws IOException {
         DatagramPacket packet;
         byte[] buf = new byte[256];
@@ -58,6 +72,10 @@ public class UDPClient extends Thread{
         this.clientSock.close();
     }
 
+    /**
+     * Send a message when the client press enter in the System.in
+     * @throws IOException
+     */
     public void writter () throws IOException {
         String line;
         BufferedReader stdIn = null;
@@ -88,6 +106,11 @@ public class UDPClient extends Thread{
         clientSock.close();
     }
 
+    /**
+     *  main method
+     * @param args 0: ipAddress of the server 1: portNumber 2: Name of the client
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 
         UDPClient writter = null;

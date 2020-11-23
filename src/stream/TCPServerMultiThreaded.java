@@ -14,8 +14,8 @@ public class TCPServerMultiThreaded {
 
     /**
      * main method
-     * @param EchoServer port
-     *
+     * Lauch a ClientThread for each connexion/client
+     * @param args 0: PortNumber of the connexion
      **/
     public static void main(String args[]){
         ServerSocket listenSocket;

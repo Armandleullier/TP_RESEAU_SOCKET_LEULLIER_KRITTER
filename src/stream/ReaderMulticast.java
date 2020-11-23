@@ -6,12 +6,21 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
 
+
 public class ReaderMulticast extends Thread {
     InetAddress groupeIP;
     int port;
     String nom;
     MulticastSocket socketReception;
 
+
+    /**
+     * add the client to the group
+     * @param groupeIP multicast address
+     * @param port multicast port
+     * @param nom name of the client
+     * @throws Exception
+     */
     ReaderMulticast (InetAddress groupeIP, int port, String nom)  throws Exception {
         this.groupeIP = groupeIP;
         this.port = port;
@@ -21,6 +30,9 @@ public class ReaderMulticast extends Thread {
         start();
     }
 
+    /**
+     * Listen to the Multicast and print messsage when received
+     */
     public void run() {
         DatagramPacket message;
         byte[] contenuMessage;

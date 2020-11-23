@@ -17,6 +17,11 @@ public class TCPClient extends Thread {
     private static Boolean isOpen;
     private String name;
 
+    /**
+     * @param isAWritter if the tread was meant to write
+     * @param echoSocket server socket connexion
+     * @param name name of the client
+     */
     public TCPClient(Boolean isAWritter, Socket echoSocket, String name) {
         this.isAWritter = isAWritter;
         this.echoSocket = echoSocket;
@@ -24,6 +29,9 @@ public class TCPClient extends Thread {
         this.name = name;
     }
 
+    /**
+     * lauchn writter if the thread was meant to write or reader if the thread was meant to read
+     */
     public void run () {
         if(isAWritter) {
             try {
@@ -40,6 +48,10 @@ public class TCPClient extends Thread {
         }
     }
 
+    /**
+     * Display messages when received
+     * @throws IOException
+     */
     public void reader () throws IOException {
         String line;
         BufferedReader socIn = null;
@@ -56,6 +68,10 @@ public class TCPClient extends Thread {
         socIn.close();
     }
 
+    /**
+     * Send a message when the client press enter in the System.in
+     * @throws IOException
+     */
     public void writter () throws IOException {
         String line;
         PrintStream socOut = null;
@@ -79,10 +95,11 @@ public class TCPClient extends Thread {
         echoSocket.close();
     }
 
-  /**
-  *  main method
-  *  accepts a connection, receives a message from client then sends an echo to the client
-  **/
+    /**
+     *  main method
+     * @param args 0: ipAddress of the server 1: portNumber 2: Name of the client
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
 
         Socket echoSocket = null;

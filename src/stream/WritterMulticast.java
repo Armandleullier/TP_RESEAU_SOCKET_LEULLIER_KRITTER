@@ -14,6 +14,12 @@ public class WritterMulticast extends Thread {
     MulticastSocket socketEmission;
     String nom;
 
+    /**
+     * @param groupeIP multicast IP
+     * @param port multicast Port
+     * @param nom name of the client
+     * @throws Exception
+     */
     WritterMulticast(InetAddress groupeIP, int port, String nom) throws Exception {
         this.groupeIP = groupeIP;
         this.port = port;
@@ -23,6 +29,9 @@ public class WritterMulticast extends Thread {
         start();
     }
 
+    /**
+     * When the user write in the console and press enter, it sends the message to the multicast
+     */
     public void run() {
         BufferedReader entreeClavier;
 
@@ -38,6 +47,11 @@ public class WritterMulticast extends Thread {
         }
     }
 
+    /**
+     * send texte to the multicast ipAdress
+     * @param texte
+     * @throws Exception
+     */
     void emettre(String texte) throws Exception {
         byte[] contenuMessage;
         DatagramPacket message;

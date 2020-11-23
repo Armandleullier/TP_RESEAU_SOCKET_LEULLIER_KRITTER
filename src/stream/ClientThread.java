@@ -19,21 +19,24 @@ import java.util.List;
 public class ClientThread extends Thread {
 
     private static List<Socket> socketList = new LinkedList<Socket>();
-    private static List<String> history = new LinkedList<String>();
     private Socket clientSocket;
 
+    /**
+     * Add the client socket s to the socketList and set the client socket with s
+     * @param s Client socket
+     */
     ClientThread(Socket s) {
         socketList.add(s);
         clientSocket = s;
     }
 
     /**
-     * receives a request from client then sends an echo to the client
-     **/
+     * receives a request from client then sends an echo to the clients connected in socketList
+     */
     public void run() {
         try {
-            //configuration of the input stream where the client writes his messages
             loadHistory();
+            //configuration of the input stream where the client writes his messages
             BufferedReader socIn = null;
             socIn = new BufferedReader(
                     new InputStreamReader(clientSocket.getInputStream()));
@@ -46,7 +49,6 @@ public class ClientThread extends Thread {
                     break;
                 } else {
                     //add the message to the history
-                    history.add(line);
                     addMessageToHistoryFile(line);
                     sendMessage(line);
                 }
@@ -57,6 +59,11 @@ public class ClientThread extends Thread {
         System.out.println(clientSocket.getInetAddress() + "end of the thread");
     }
 
+    /**
+     * Load the history located at ../dataBase/history.txt
+     * @throws IOException
+     * @throws InterruptedException
+     */
     public void loadHistory () throws IOException, InterruptedException {
         File file = new File("../dataBase/history.txt");
         BufferedReader br = new BufferedReader(new FileReader(file));
@@ -68,6 +75,11 @@ public class ClientThread extends Thread {
         }
     }
 
+    /**
+     * Add message to the history located at ../dataBase/history.txt
+     * @param message message to save
+     * @throws IOException
+     */
     public void addMessageToHistoryFile (String message) throws IOException {
         FileWriter fw = new FileWriter("../dataBase/history.txt", true);
         BufferedWriter bw = new BufferedWriter(fw);
@@ -76,6 +88,10 @@ public class ClientThread extends Thread {
         bw.close();
     }
 
+    /**
+     * Send message to all the socketList
+     * @param message message to send
+     */
     private void sendMessage(String message) {
         //send the message to all the connexion of the server
         for (Socket s : socketList) {
