@@ -47,7 +47,9 @@ public class EchoUDPClient extends Thread{
                 packet = new DatagramPacket(buf, buf.length);
                 this.clientSock.receive(packet);
                 String received = new String(packet.getData(), 0, packet.getLength());
-                System.out.println("Response: " + received);
+                if(!received.startsWith(name)) {
+                    System.out.println(received);
+                }
             } catch (IOException e) {
                 System.err.println("Couldn't get I/O for "
                         + "the connection to:"+ this.serverAddress.getHostName());
@@ -69,7 +71,7 @@ public class EchoUDPClient extends Thread{
             System.out.println("writting error " + e);
         }
         while (true) {
-            line = stdIn.readLine();
+            line = name + ": " + stdIn.readLine();
             if (line.equals(".")) {
                 isOpen = false;
                 break;
@@ -112,7 +114,7 @@ public class EchoUDPClient extends Thread{
             packet = new DatagramPacket(buf, buf.length);
             clientSock.receive(packet);
             String received = new String(packet.getData(), 0, packet.getLength());
-            System.out.println("Response: " + received);
+            System.out.println(received);
 
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host:" + args[0]);

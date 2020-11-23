@@ -10,36 +10,36 @@ public class EchoUDPServer {
     static void doService(DatagramSocket socket) {
         byte[] buffer = new byte[1500];
         DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+        Set<Integer> clientsConnected = new HashSet<Integer>();
         while(true) {
             try {
                 socket.receive(packet);
                 InetAddress clientAddress = packet.getAddress();
                 int port = packet.getPort();
                 String message = new String(packet.getData(), 0, packet.getLength());
-                System.out.println("Reception de : " + clientAddress.getHostName() + " : " + message);
-                handleReception(message,socket,clientAddress,port);
+                System.out.println("Reception de : " + port + " : " + message);
+                handleReception(message,socket,clientAddress,port,clientsConnected);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    static void handleReception(String messsage, DatagramSocket socket,InetAddress clientAddress,int port) {
-        Map<InetAddress,Integer> clientsConnected = new HashMap<InetAddress,Integer>();
+    static void handleReception(String messsage, DatagramSocket socket,InetAddress clientAddress,int port,Set<Integer> clientsConnected) {
         String response = "";
-        if (messsage.equals("connect") && !clientsConnected.containsKey(clientAddress)) {
-            clientsConnected.put(clientAddress,port);
-            response = clientAddress.getHostName() + " has join the chat";
-        } else if (messsage.equals("disconnect") && clientsConnected.containsKey(clientAddress)){
-            clientsConnected.remove(clientAddress);
-            response = clientAddress.getHostName() + " has left the chat";
+        if (messsage.equals("connect") && !clientsConnected.contains(port)) {
+            clientsConnected.add(port);
+            response =  "A new participant has join the chat";
+        } else if (messsage.equals("disconnect") && clientsConnected.contains(port)) {
+            clientsConnected.remove(port);
+            response =  "A participant has left the chat";
         } else {
             response = messsage;
         }
         try {
             byte[] b = response.getBytes();
-            for (Map.Entry<InetAddress,Integer> client :clientsConnected.entrySet()) {
-                DatagramPacket clientPacket = new DatagramPacket(b, b.length, client.getKey(), client.getValue());
+            for (Integer clientPort :clientsConnected) {
+                DatagramPacket clientPacket = new DatagramPacket(b, b.length, clientAddress, clientPort);
                 socket.send(clientPacket);
             }
         } catch (IOException e) {
