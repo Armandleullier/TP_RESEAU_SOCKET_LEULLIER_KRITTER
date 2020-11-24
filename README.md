@@ -7,6 +7,13 @@
      <li>
        dataBase : historique des chats du TCPServer si vous lancez le TCP server via le repo exe ou src
      </li>
+     <li>
+       exe : contient des fichiers shell qui compilent les .java en .class dans classes puis lance le main dans un terminal
+     </li>
+     <li>
+       exe : contient les .jar de chaque classes executable de ce projet et le .jar client GUI avec la librairie javafx + un .bat pour le lancer
+       <p>: a noter que votre version de JDK doit etre supérieur à java 11 pour lancer le GUI</p>
+     </li>
     </ul>
 <h2>TCP Client/Server</h2>
 <p>Nous disposons d'un server TCPMultithreaded et de 2 clients TCP,
