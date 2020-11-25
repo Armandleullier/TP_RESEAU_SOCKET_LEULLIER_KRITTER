@@ -4,3 +4,8 @@ Anonymous1: Bonjour
 Anonymous1: Comment allez vous ?
 
 Anonymous2: ca va ca va
+
+Anonymous1: bonjour
+
+Anonymous3: ca va ?
+Armand: Bonjour !
