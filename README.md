@@ -17,6 +17,12 @@
        lib : contient les .jar de chaque classes executable de ce projet et le .jar client GUI avec la librairie javafx + un .bat pour le lancer
        <p>: a noter que votre version de JDK doit etre supérieur à java 11 pour lancer le GUI</p>
      </li>
+     <li>
+       src : contient les fichiers java des clients et des servers 
+     </li>
+     <li>
+       src_client_GUI : contient l'appli javafx tu client TCP
+     </li>
     </ul>
 <h2>TCP Client/Server</h2>
 <p>Nous disposons d'un server TCPMultithreaded et de 2 clients TCP,
@@ -69,6 +75,7 @@
       </li>
      </ul>
 <h2>UDP Multicast</h2>
+<p> Nous avons fait le Multicast + un server UDP normal ci dessus</p>
 <h3>Comment lancer le Multicast ? </h3>
 <ul>
       <li>
